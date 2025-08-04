@@ -21,7 +21,3 @@ if __name__ == "__main__":
     df = pd.read_csv("../data/tweets_dataset.csv")
     clean(df)
     analyze(df)
-# print(type(df["Biased"].iloc[5]))
-# print(df[df["Biased"] == "0"].iloc[4])
-# print(df["Text"].iloc[3])
-# print(len(str(df[:3].Text)))
