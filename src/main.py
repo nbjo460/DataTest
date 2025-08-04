@@ -15,11 +15,13 @@ def analyze(df : DataFrame):
     tmp = DataAnalyze.DataAnalyze(df)
     js = tmp.analyze()
     with open("../results/results.json", "w") as file:
-        json.dump(js, file)
+        json.dump(js, file, indent=4)
 
-
-
-df = pd.read_csv("../data/tweets_dataset.csv")
-clean(df)
-analyze(df)
-print(df.columns)
+if __name__ == "__main__":
+    df = pd.read_csv("../data/tweets_dataset.csv")
+    clean(df)
+    analyze(df)
+# print(type(df["Biased"].iloc[5]))
+# print(df[df["Biased"] == "0"].iloc[4])
+# print(df["Text"].iloc[3])
+# print(len(str(df[:3].Text)))
