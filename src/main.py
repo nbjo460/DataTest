@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 from pandas.core.interchange.dataframe_protocol import DataFrame
 
@@ -11,12 +13,13 @@ def clean(df : DataFrame):
 
 def analyze(df : DataFrame):
     tmp = DataAnalyze.DataAnalyze(df)
-    df = tmp.analyze()
-    df.to_json("../results/results.json")
+    js = tmp.analyze()
+    with open("../results/results.json", "w") as file:
+        json.dump(js, file)
 
 
 
 df = pd.read_csv("../data/tweets_dataset.csv")
 clean(df)
 analyze(df)
-print(df["Biased"].isna().sum())
+print(df.columns)
