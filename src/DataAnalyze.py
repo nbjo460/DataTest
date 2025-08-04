@@ -1,4 +1,6 @@
 import pandas as pd
+from pandas.plotting import table
+
 
 class DataAnalyze:
     def __init__(self, df):
@@ -9,7 +11,7 @@ class DataAnalyze:
         self.create_len_in_table()
         self.result["category"] = self.count_per_category("Biased")
         self.result["average_len"] = self.average_len_per_category("Biased")
-
+        self.result["commons"] = self.three_commons_words("Biased")
         return self.result
 
     def count_per_category(self, column_name):
@@ -34,3 +36,11 @@ class DataAnalyze:
                 continue
             average[k] = self.table[self.table[column_name] == k].length.mean()
         return average
+
+    def three_commons_words(self, column_name):
+        commons = {}
+        for k in self.result["category"]:
+            if k == "sum": continue
+            sorted = self.table[self.table[column_name] == k].sort_values(by="length", ascending=False)
+            commons[k] = sorted["Text"].head(3).to_list()
+        return commons
