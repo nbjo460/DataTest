@@ -14,7 +14,7 @@ class DataAnalyze:
         self.result["average_len"] = self.average_len_per_category("Biased")
         self.result["longest"] = self.three_longest_twits("Biased")
         self.result["commons"] = self.ten_commons_words(longset_series)
-
+        self.result["upper"] = self.get_sum_upper_words(longset_series)
         return self.result
 
     def count_per_category(self, column_name):
@@ -60,8 +60,14 @@ class DataAnalyze:
         series.reset_index(inplace=True, drop=True)
         return series
 
-    def ten_commons_words(self, _longest_series):
+    @staticmethod
+    def ten_commons_words(_longest_series):
         grouped = _longest_series.value_counts()
         grouped = grouped.sort_values(ascending = False)
         grouped = grouped.head(10).to_dict()
         return grouped
+
+    @staticmethod
+    def get_sum_upper_words(_longest_series):
+        sum = _longest_series.str.isupper().sum()
+        return sum
