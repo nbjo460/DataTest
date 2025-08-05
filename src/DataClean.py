@@ -1,6 +1,4 @@
 import string
-
-import pandas as pd
 from pandas import DataFrame
 
 
@@ -20,11 +18,14 @@ class DataClean:
     def remove_punctuation(self, column_name : str):
         punc = r'[{}]'.format(string.punctuation)
         table = self.table
-        for char in punc:
-            try:
-                table[column_name] = table[column_name].astype(str).str.replace(char, '')  # remove numbers
-            except:
-                print(column_name)
+        table[column_name] = table[column_name].astype(str).str.translate(
+            str.maketrans("", "", string.punctuation))  # remove numbers
+
+        # for char in punc:
+        #     try:
+        #         table[column_name] = table[column_name].astype(str).str.replace(char, '')  # remove numbers
+        #     except:
+        #         print(column_name)
 
     def lower(self, column_name : str):
         table = self.table
