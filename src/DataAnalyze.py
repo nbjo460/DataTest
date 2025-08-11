@@ -1,7 +1,3 @@
-import pandas as pd
-from pandas.plotting import table
-
-
 class DataAnalyze:
     def __init__(self, df):
         self.table = df
@@ -50,8 +46,9 @@ class DataAnalyze:
 
     def convert_table_to_long_series(self):
         splitted = self.table.Text.str.split(" ", expand=True)
+        print(splitted)
         series = splitted[0]
-        series.dropna()
+        series = series.dropna()
         for i in range(splitted.shape[1]):
             if i == 0: continue
             tmp = splitted[i]
@@ -70,4 +67,4 @@ class DataAnalyze:
     @staticmethod
     def get_sum_upper_words(_longest_series):
         sum = _longest_series.str.isupper().sum()
-        return sum
+        return int(sum)
